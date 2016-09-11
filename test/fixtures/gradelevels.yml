@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  gldate: 2013-06-19
+  glincident_date: 2013-06-19
+  glreason: MyText
+  glteacher: MyString
+  student: 
+
+two:
+  gldate: 2013-06-19
+  glincident_date: 2013-06-19
+  glreason: MyText
+  glteacher: MyString
+  student: 

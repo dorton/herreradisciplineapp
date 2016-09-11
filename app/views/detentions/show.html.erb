@@ -1,0 +1,29 @@
+<% if @detention.incident_date == nil %>
+<%= @detention.created_at.strftime("%m/%d/%Y") %>
+<% else %>
+<%= @detention.incident_date.strftime("%m/%d/%Y") %>
+<% end %>
+
+<br>
+<br>
+
+Dear <%= @student.parent_name %>,<br>
+<br>
+Your child, <%= @student.first_name %> will need to attend afterschool detention on <B><%= @detention.detention_date.strftime("%m/%d/%Y") %></B> from <B>1:00 - 3:00</b> for violating the following in the Code of Student Conduct:<br>
+<br>
+<%= @detention.reason.upcase %><br>
+<br>
+The student will be given assignments to complete while in detention. If you have any questions, feel free to call. <br>
+<br>
+Thank you,<br>
+<br>
+<br>
+<%= @detention.administrator %>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+Parent Signature/Date ______________________________________
+

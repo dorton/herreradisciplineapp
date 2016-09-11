@@ -1,0 +1,34 @@
+<%= simple_form_for([@student, @gradelevel]) do |f| %>
+  <% if @gradelevel.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@gradelevel.errors.count, "error") %> prohibited this gradelevel from being saved:</h2>
+
+      <ul>
+      <% @gradelevel.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-inline">
+    <h4><%= f.label "Grade Level Detention Date" %>
+    <%= f.datepicker :gldate, :dateFormat => 'yy-mm-dd', :class => "input-small" %></h4>
+  </div>
+  <div class="form-inline">
+    <h4><%= f.label "Incident Date" %>
+    <%= f.datepicker :glincident_date, :dateFormat => 'yy-mm-dd', :class => "input-small" %></h4>
+  </div>
+  <div class="form-inline">
+    <h4><%= f.label "Reason" %><br />
+        <%= f.text_area :glreason, :rows => 5 %></h4>
+  </div>
+  <div class="form-inline">
+    <br />
+    <h4><%= f.select :glteacher, ['Mandy Gutierrez', 'Rachel Ham', 'Melody Vizi', 'Christopher Carnes', 'Sandra Castillo'], :prompt => 'Select Teacher' %></h4>
+  </div>
+ <div class="actions">
+    <h4><%= f.submit :target => "_blank"%></h4>
+  </div>
+
+<% end %>

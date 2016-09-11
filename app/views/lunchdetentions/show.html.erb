@@ -1,0 +1,27 @@
+<%= @lunchdetention.incident_date.strftime("%m/%d/%Y") %>
+<br>
+<br>
+<B>LUNCH DETENTION</B><br>
+To the parents of <%= @student.first_name %> <%= @student.last_name %><br>
+RE: The <%= @lunchdetention.days %> day LUNCH DETENTION of <%= @student.first_name %>.<br>
+<br>
+
+Dear <%= @student.parent_name %>,<br>
+<br>
+Your child, <%= @student.first_name %> will be in lunch detention beginning on <%= @lunchdetention.start_date.strftime("%m/%d/%Y") %> and ending on <%= @lunchdetention.end_date.strftime("%m/%d/%Y") %> (<%= @lunchdetention.days %> days) for the following reason(s):<br>
+<br>
+<%= @lunchdetention.reason.upcase %><br>
+<br>
+<br>
+<%= @student.first_name %> will eat lunch in the office for these days.<br>
+<br>
+<br>
+Thank you,<br>
+<br>
+<%= @lunchdetention.administrator %>
+
+
+<br>
+<br>
+<br>
+Parent Signature/Date ______________________________________

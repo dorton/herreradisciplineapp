@@ -1,0 +1,7 @@
+<h1>Editing suspension</h1>
+
+<%= render 'form' %>
+
+<%= link_to 'Show', student_suspension_path(@student) %> |
+<%= link_to 'Delete Suspension', student_suspension_path(@student), method: :delete, data: { confirm: 'Do you really want to delete this? You can not undo.' } %> |
+<%= link_to 'Back', :back %> |

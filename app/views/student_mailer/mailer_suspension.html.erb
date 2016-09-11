@@ -1,0 +1,13 @@
+
+<%= @student.teacher %>,<br>
+<br>
+This email is to inform you that <%= @student.full_name %> has been suspended from school beginning on <b><%= @suspension.start_date.strftime("%m/%d/%Y") %></b> and ending on <b><%= @suspension.end_date.strftime("%m/%d/%Y") %></b> (<%= @suspension.days %> days) for violating the following in the Code of Student Conduct:<br>
+<br>
+<%= @suspension.reason.upcase %><br>
+<br>
+If you have any questions or need any further information, please do not hesitate to ask.
+<br>
+<br>
+Thank you,<br>
+<br>
+<%= @suspension.administrator %>

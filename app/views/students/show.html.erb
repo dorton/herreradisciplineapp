@@ -1,0 +1,285 @@
+<p id="notice"><%= notice %></p>
+
+<div class="row">
+<div class="span4">  
+  <%= image_tag(@student.avatar_url) %>
+  <h1><%= @student.first_name %> <%= @student.last_name %></h1></div>
+  
+  <div class="span4"><p>
+    <u><h2>Grade/Teacher</h2></u>
+    <h4><b>Grade:</b>
+        <%= @student.grade %></h4>
+  </p>
+  
+  <p>
+    <h4>
+        <%= @student.teacher %></h4>
+  </p></div>
+
+
+<div class="span4">
+<u><h2>Contact Info</h2></u>
+<p>
+  <h4><b>Parent name:</b>
+    <%= @student.parent_name %></h4>
+</p>
+
+<p>
+<h4>  <b>Contact Number:</b>
+  <%= @student.phone %></h4>
+</p>
+<%= link_to "Edit #{@student.first_name}'s Contact Info", edit_student_path(@student) %>
+
+
+</div>
+</div>
+
+<!-- ******************DETENTIONS****************** -->
+
+<div class="row">
+<div class="span4"><p>
+  
+
+<%= link_to "#detentionform", "data-toggle"=>"modal", :class => 'btn btn-large btn-danger' do %>
+              <%= "New Detention" %>
+            <% end %>
+  <h2>Detentions:   <% if Detention.all(:conditions => ["student_id = ?", @student]).empty? %>
+<h5><%= @student.first_name%> has not had detention this year.</h5>
+  <% else %> <%= Detention.where("student_id = ?", @student).count %></h2>
+  <table class="table table-hover table-condensed ">
+  <tr>
+    <th>Detention Date</th>
+    <th>Reason</th>
+    <th></th>
+    <th></th>
+
+  </tr>
+
+<% @detentions.each do |detention|%>
+<% next if detention.new_record? %>
+  <tr>
+    <td><%= detention.detention_date.strftime("%m/%d/%Y") %></td>
+    <td><%= link_to detention.reason, student_detention_path(@student, detention), :target => "_blank" %></td>
+    <!--  -->
+    <td><%= link_to "Edit", edit_student_detention_path(@student, detention) %></td>
+    
+
+  </tr>
+  <% end %>
+  
+</table>
+<% end %>
+
+  
+  <div id="detentionform" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+      <div class="modal-header">
+        <button class="close" data-dismiss="modal">&times;</button>
+        <h3>New Detention for <%= @student.first_name%></h3>
+      </div>   
+      <div class="modal-body"> 
+        <%= render "detentions/form"%>
+       </div>
+            
+</div>
+
+</p>
+</div>
+
+<!-- ******************ISS****************** -->
+
+<div class="span4"><p>
+  <%= link_to "#inschoolform", "data-toggle"=>"modal", :class => 'btn btn-large btn-danger' do %>
+              <%= "New ISS" %>
+            <% end %>
+  <h2>ISS: <% if Inschool.all(:conditions => ["student_id = ?", @student]).empty? %>
+<h5><%= @student.first_name%> has not had ISS this year.</h5>
+  <% else %> <%= Inschool.where("student_id = ?", @student).count %></h2>
+  <table class="table table-hover table-condensed ">
+  <tr>
+    <th>Dates</th>
+    <th>Days</th>
+    <th>Reason</th>
+    <th></th>
+  </tr>
+
+<% @inschools.each do |inschool|%>
+<% next if inschool.new_record? %>
+  <tr>
+    <td><%= inschool.start_date.strftime("%m/%d/%Y") %>-<%= inschool.end_date.strftime("%m/%d/%Y") %></td>
+    <td><%= inschool.days %></td>
+    <td><%= link_to inschool.reason, student_inschool_path(@student, inschool), :target => "_blank" %></td>
+    <td><%= link_to "Edit", edit_student_inschool_path(@student, inschool) %></td>
+    
+  </tr>
+  <% end %>
+  
+</table>
+<% end %>
+
+
+  <div id="inschoolform" class="modal hide fade">
+
+      <div class="modal-header">
+        <button class="close" data-dismiss="modal">&times;</button>
+        <h3>New ISS for <%= @student.first_name%></h3>
+      </div>      
+      <div class="modal-body"> 
+        <%= render partial: "inschools/form"%>
+       </div>
+            
+</div>
+
+</p></div>
+
+<!-- ******************Suspensions****************** -->
+
+<div class="span4"><p>
+  <%= link_to "#suspensionform", "data-toggle"=>"modal", :class => 'btn btn-large btn-danger' do %>
+              <%= "New Suspension" %>
+            <% end %>
+  <h2>Suspensions: <% if Suspension.all(:conditions => ["student_id = ?", @student]).empty? %>
+<h5><%= @student.first_name%> has not been suspended this year.</h5>
+  <% else %> <%= Suspension.where("student_id = ?", @student).count %></h2>
+  <table class="table table-hover table-condensed ">
+  <tr>
+    <th>Dates</th>
+    <th>Days</th>
+    <th>Reason</th>
+    <th></th>
+  </tr>
+
+<% @suspensions.each do |suspension|%>
+<% next if suspension.new_record? %>
+  <tr>
+    <td><%= suspension.start_date.strftime("%m/%d/%Y") %>-<%= suspension.end_date.strftime("%m/%d/%Y") %></td>
+    <td><%= suspension.days %></td>
+    <td><%= link_to suspension.reason, student_suspension_path(@student, suspension), :target => "_blank" %></td>
+    <td><%= link_to "Edit", edit_student_suspension_path(@student, suspension) %></td>
+    
+  </tr>
+  <% end %>
+  
+</table>
+<% end %>
+
+  
+    <div id="suspensionform" class="modal hide fade">
+
+      <div class="modal-header">
+        <button class="close" data-dismiss="modal">&times;</button>
+        <h3>New Suspension for <%= @student.first_name%></h3>
+      </div>      
+      <div class="modal-body"> 
+        <%= render partial: "suspensions/form"%>
+       </div>
+            
+</div>
+</p></div>
+</div>
+<!-- ******************Grade Level Detention****************** -->
+
+<div class="row">
+<div class="span4"><p>
+  
+
+<%= link_to "#gradelevelform", "data-toggle"=>"modal", :class => 'btn btn-large btn-danger' do %>
+              <%= "New Grade Level Detention" %>
+            <% end %>
+  <h2>Grade Level Detentions:   <% if Gradelevel.all(:conditions => ["student_id = ?", @student]).empty? %>
+<h5><%= @student.first_name%> has not had detention this year.</h5>
+  <% else %> <%= Gradelevel.where("student_id = ?", @student).count %></h2>
+  <table class="table table-hover table-condensed ">
+  <tr>
+    <th>Detention Date</th>
+    <th>Reason</th>
+    <th></th>
+    <th></th>
+
+  </tr>
+
+<% @gradelevels.each do |gradelevel|%>
+<% next if gradelevel.new_record? %>
+  <tr>
+    <td><%= gradelevel.gldate.strftime("%m/%d/%Y") %></td>
+    <td><%= link_to gradelevel.glreason, student_gradelevel_path(@student, gradelevel), :target => "_blank" %></td>
+    <!--  -->
+    <td><%= link_to "Edit", edit_student_gradelevel_path(@student, gradelevel) %></td>
+    
+
+  </tr>
+  <% end %>
+  
+</table>
+<% end %>
+
+  
+  <div id="gradelevelform" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+      <div class="modal-header">
+        <button class="close" data-dismiss="modal">&times;</button>
+        <h3>New Grade Level Detention for <%= @student.first_name%></h3>
+      </div>   
+      <div class="modal-body"> 
+        <%= render "gradelevels/form"%>
+       </div>
+            
+</div>
+
+</p></div>
+
+<!-- ******************Lunch Detention****************** -->
+
+
+<div class="span4"><p>
+  
+
+<%= link_to "#lunchdetentionform", "data-toggle"=>"modal", :class => 'btn btn-large btn-danger' do %>
+              <%= "New Lunch Detention" %>
+            <% end %>
+  <h2>Lunch Detentions:   <% if Lunchdetention.all(:conditions => ["student_id = ?", @student]).empty? %>
+<h5><%= @student.first_name%> has not had lunch detention this year.</h5>
+  <% else %> <%= Lunchdetention.where("student_id = ?", @student).count %></h2>
+  <table class="table table-hover table-condensed ">
+  <tr>
+    <th>Lunch Detention Date</th>
+    <th>Reason</th>
+    <th></th>
+    <th></th>
+
+  </tr>
+
+<% @lunchdetentions.each do |lunchdetention|%>
+<% next if lunchdetention.new_record? %>
+  <tr>
+    <td><%= lunchdetention.start_date.strftime("%m/%d/%Y") %></td>
+    <td><%= link_to lunchdetention.reason, student_lunchdetention_path(@student, lunchdetention), :target => "_blank" %></td>
+    <!--  -->
+    <td><%= link_to "Edit", edit_student_lunchdetention_path(@student, lunchdetention) %></td>
+    
+
+  </tr>
+  <% end %>
+  
+</table>
+<% end %>
+
+  
+  <div id="lunchdetentionform" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+      <div class="modal-header">
+        <button class="close" data-dismiss="modal">&times;</button>
+        <h3>New Lunch Detention for <%= @student.first_name%></h3>
+      </div>   
+      <div class="modal-body"> 
+        <%= render "lunchdetentions/form"%>
+       </div>
+            
+</div>
+
+</p>
+
+
+</div>
+
+

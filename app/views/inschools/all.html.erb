@@ -1,0 +1,37 @@
+
+
+<h1>All ISS Students - <%= @inschool_count %> Students / <%= Inschool.all.count %> Incidents </h1>
+
+
+
+<% @inschools_group.each do |student, inschools| %>
+<h2><%= student %> </h2>
+<table class="table table-hover table-condensed table-bordered">
+
+
+  <tr>
+    <th>Dates</th>
+    <th>Grade</th>
+    <th>Teacher</th>
+    <th>Reason</th>
+    <th>Administrator</th>
+  </tr>
+
+<% inschools.each do |inschool| %>
+  <tr>
+    <td><%= inschool.start_date.strftime("%m/%d/%Y") %>-<%= inschool.end_date.strftime("%m/%d/%Y") %></td>
+    <td><%= inschool.student.grade %></td>
+    <td><%= inschool.student.teacher %></td>
+    <td><%= inschool.reason %></td>
+    <td><%= inschool.administrator %></td>
+    
+  </tr>
+<% end %>
+
+</table>
+<% end %>
+
+<br />
+
+
+

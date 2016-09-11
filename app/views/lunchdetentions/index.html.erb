@@ -1,0 +1,35 @@
+<h1>Listing lunchdetentions</h1>
+
+<table>
+  <tr>
+    <th>Start date</th>
+    <th>End date</th>
+    <th>Days</th>
+    <th>Incident date</th>
+    <th>Reason</th>
+    <th>Administrator</th>
+    <th>Student</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @lunchdetentions.each do |lunchdetention| %>
+  <tr>
+    <td><%= lunchdetention.start_date %></td>
+    <td><%= lunchdetention.end_date %></td>
+    <td><%= lunchdetention.days %></td>
+    <td><%= lunchdetention.incident_date %></td>
+    <td><%= lunchdetention.reason %></td>
+    <td><%= lunchdetention.administrator %></td>
+    <td><%= lunchdetention.student %></td>
+    <td><%= link_to 'Show', lunchdetention %></td>
+    <td><%= link_to 'Edit', edit_lunchdetention_path(lunchdetention) %></td>
+    <td><%= link_to 'Destroy', lunchdetention, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Lunchdetention', new_lunchdetention_path %>

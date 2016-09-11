@@ -1,0 +1,6 @@
+<h1>Herrera Discipline App</h1>
+
+<%= form_tag students_path(Student), :method => 'get' do %>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search", :name => nil %>
+<% end %>

@@ -1,0 +1,17 @@
+
+<%= @student.teacher %>,<br>
+<br>
+
+<%= @student.full_name %> will be suspended from class to attend <b>in-school suspension</b> beginning on <b><%= @inschool.start_date.strftime("%m/%d/%Y") %></b> and ending on <b><%= @inschool.end_date.strftime("%m/%d/%Y") %></b> (<%= @inschool.days %> days) for violating the following in the Code of Student Conduct:<br>
+<br>
+<%= @inschool.reason.upcase %><br>
+<br>
+Each day, <%= @student.first_name %> will report to the front office and will be picked up there by the ISS teacher.  Please ensure that <%= @student.first_name %> has enough work for each day assigned.  
+<br>
+<br>
+<%= @student.first_name %> will be in room T-A if needed.
+<br>
+<br>
+Thank you,<br>
+<br>
+<%= @inschool.administrator %>

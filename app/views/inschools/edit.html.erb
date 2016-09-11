@@ -1,0 +1,7 @@
+<h1>Editing inschool</h1>
+
+<%= render 'form' %>
+
+<%= link_to 'Show', student_inschool_path(@student) %> |
+<%= link_to 'Delete ISS', student_inschool_path(@student), method: :delete, data: { confirm: 'Are you sure?' } %> |
+<%= link_to 'Back', :back %>

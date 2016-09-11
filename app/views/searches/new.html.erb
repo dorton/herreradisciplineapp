@@ -1,0 +1,156 @@
+<div class="well well-large">
+<h3>Enter Student's First Name Or Teacher's Name Below</h3>
+<%= form_for(@search) do |f| %>
+<% if @search.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@search.errors.count, "error") %> prohibited this search from being saved:</h2>
+
+      <ul>
+      <% @search.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    
+    <%= f.autocomplete_field :keywords, autocomplete_student_first_name_searches_path, :class => "input-xxlarge search-query" %>
+    <%= f.submit "Search" %>
+  </div>
+  
+<% end %>
+</div>
+<!-- *****************Detentions*****************-->
+<div class="row"> 
+<div class="span4">  
+  <h2>Detentions for <%= Time.now.end_of_week(start_day = :thursday).strftime("%m/%d/%Y") %></h2>
+  <% if Detention.all(:conditions => ["detention_date > ? and detention_date <= ?", Time.now.beginning_of_week(:thursday).strftime("%Y-%m-%d"),Time.now.end_of_week(:thursday).strftime("%Y-%m-%d")]).empty? %>
+  <h4>No Detentions (Right Now)</h4>
+  <% else %>
+  <table class="table table-hover table-condensed">
+    <tr>
+      <th>Student name</th>
+      <th>Teacher</th>
+    </tr>
+<% Detention.all(:include => :student, :conditions => ["detention_date > ? and detention_date <= ?", Time.now.beginning_of_week(:thursday).strftime("%Y-%m-%d"),Time.now.end_of_week(:thursday).strftime("%Y-%m-%d")], :order => "detention_date DESC").each do |detention| %>
+    <tr>
+      <td><%= link_to "#{detention.student.first_name} #{detention.student.last_name}", student_path(detention.student) %></td>
+      <td><%= link_to detention.student.teacher, student_path(detention.student) %></td>
+    </tr>
+    <% end %>
+
+     <% if Detention.all(:conditions => ["detention_date > ? and detention_date <= ?", Time.now.beginning_of_week(:thursday).strftime("%Y-%m-%d"),Time.now.end_of_week(:thursday).strftime("%Y-%m-%d")]).empty? %>
+  <h4></h4>
+  <% else %>
+  
+
+  </table>
+  <h4>Total Detentions - <%= Detention.all(:conditions => ["detention_date > ? and detention_date <= ?", Time.now.beginning_of_week(:thursday).strftime("%Y-%m-%d"),Time.now.end_of_week(:thursday).strftime("%Y-%m-%d")]).count %></h4>
+  <% end %>
+  <h4><%= link_to "Print Detention List", detentions_detentions_print_path, :target => "_blank" %></h4>
+  <% end %>
+</div>
+<!-- *****************ISS Students*****************-->
+  <div class="span4">
+  <h2>Current Students in ISS</h2>
+  <% if Inschool.all(:include => :student, :conditions => ["start_date <= ? and end_date >= ?", Time.now.strftime("%Y-%m-%d"),Time.now.strftime("%Y-%m-%d")], :order => "end_date DESC").empty? %>
+  <h4>No ISS Students (Right Now)</h4>
+  <% else %>
+  <table class="table table-hover table-condensed">
+    <tr>
+      <th>Student Name</th>
+      <th>Teacher</th>
+      <th>Last Day</th>
+    </tr>
+    <% Inschool.all(:include => :student, :conditions => ["start_date <= ? and end_date >= ?", Time.now.strftime("%Y-%m-%d"),Time.now.strftime("%Y-%m-%d")], :order => "end_date DESC").each do |inschool| %>
+    <tr>
+      <td><%= link_to "#{inschool.student.first_name} #{inschool.student.last_name}", student_path(inschool.student) %> 
+
+      </td>
+      <td><%= link_to inschool.student.teacher, student_path(inschool.student) %></td>
+      <td><%= link_to inschool.end_date.strftime("%h %e"), student_path(inschool.student) %></td>
+    </tr>
+    <% end %>
+  </table>
+  <% end %>
+</div>
+  <!-- *****************Suspension Students*****************-->
+  <div class="span4">
+  <h2>Current Suspensions</h2>
+  <% if Suspension.all(:include => :student, :conditions => ["start_date <= ? and end_date >= ?", Time.now.strftime("%Y-%m-%d"),Time.now.strftime("%Y-%m-%d")], :order => "end_date DESC").empty? %>
+  <h4>No Suspended Students (Right Now)</h4>
+  <% else %>
+  <table class="table table-hover table-condensed">
+    <tr>
+      <th>Student Name</th>
+      <th>Teacher</th>
+      <th>Last Day</th>
+    </tr>
+    <% Suspension.all(:include => :student, :conditions => ["start_date <= ? and end_date >= ?", Time.now.strftime("%Y-%m-%d"),Time.now.strftime("%Y-%m-%d")], :order => "end_date DESC").each do |suspension| %>
+    <tr>
+      <td><%= link_to "#{suspension.student.first_name} #{suspension.student.last_name}", student_path(suspension.student) %></td>
+      <td><%= link_to suspension.student.teacher, student_path(suspension.student) %></td>
+      <td><%= link_to suspension.end_date.strftime("%h %e"), student_path(suspension.student) %></td>
+    </tr>
+    <% end %>
+  </table>
+  <% end %>
+</div>
+</div>
+ <!-- *****************Grade Level Students*****************-->
+<div class="row"> 
+<div class="span4">  
+  <h2>Grade Detentions for <%= Time.now.end_of_week(start_day = :thursday).strftime("%m/%d/%Y") %></h2>
+  <% if Gradelevel.all(:conditions => ["gldate > ? and gldate <= ?", Time.now.beginning_of_week(:thursday).strftime("%Y-%m-%d"),Time.now.end_of_week(:thursday).strftime("%Y-%m-%d")]).empty? %>
+  <h4>No Detentions (Right Now)</h4>
+  <% else %>
+  <table class="table table-hover table-condensed">
+    <tr>
+      <th>Student name</th>
+      <th>Teacher</th>
+    </tr>
+<% Gradelevel.all(:include => :student, :conditions => ["gldate > ? and gldate <= ?", Time.now.beginning_of_week(:thursday).strftime("%Y-%m-%d"),Time.now.end_of_week(:thursday).strftime("%Y-%m-%d")], :order => "gldate DESC").each do |gradelevel| %>
+    <tr>
+      <td><%= link_to "#{gradelevel.student.first_name} #{gradelevel.student.last_name}", student_path(gradelevel.student) %></td>
+      <td><%= link_to gradelevel.student.teacher, student_path(gradelevel.student) %></td>
+    </tr>
+    <% end %>
+
+     <% if Gradelevel.all(:conditions => ["gldate > ? and gldate <= ?", Time.now.beginning_of_week(:thursday).strftime("%Y-%m-%d"),Time.now.end_of_week(:thursday).strftime("%Y-%m-%d")]).empty? %>
+  <h4></h4>
+  <% else %>
+  
+
+  </table>
+  <h4>Total Detentions - <%= Gradelevel.all(:conditions => ["gldate > ? and gldate <= ?", Time.now.beginning_of_week(:thursday).strftime("%Y-%m-%d"),Time.now.end_of_week(:thursday).strftime("%Y-%m-%d")]).count %></h4>
+  <% end %>
+  <h4><%= link_to "Print Detention List", detentions_detentions_print_path, :target => "_blank" %></h4>
+  <% end %>
+
+
+
+</div>
+<!-- *****************Lunch*****************-->
+  <div class="span4">
+  <h2>Current Students in Lunch</h2>
+  <% if Lunchdetention.all(:include => :student, :conditions => ["start_date <= ? and end_date >= ?", Time.now.strftime("%Y-%m-%d"),Time.now.strftime("%Y-%m-%d")], :order => "end_date DESC").empty? %>
+  <h4>No Lunch Detention Students (Right Now)</h4>
+  <% else %>
+  <table class="table table-hover table-condensed">
+    <tr>
+      <th>Student Name</th>
+      <th>Teacher</th>
+      <th>Days</th>
+    </tr>
+    <% Lunchdetention.all(:include => :student, :conditions => ["start_date <= ? and end_date >= ?", Time.now.strftime("%Y-%m-%d"),Time.now.strftime("%Y-%m-%d")], :order => "end_date DESC").each do |lunchdetention| %>
+    <tr>
+      <td><%= link_to "#{lunchdetention.student.first_name} #{lunchdetention.student.last_name}", student_path(lunchdetention.student) %></td>
+      <td><%= link_to lunchdetention.student.teacher, student_path(lunchdetention.student) %></td>
+      <td><%= link_to lunchdetention.days, student_path(lunchdetention.student) %></td>
+    </tr>
+    <% end %>
+  </table>
+  <% end %>
+</div>
+</div>

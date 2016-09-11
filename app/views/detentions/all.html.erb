@@ -1,0 +1,31 @@
+<h1>All Detention Students - <%= @detentions_count %> Students / <%= Detention.all.count %> Incidents </h1>
+
+
+<% @detentions_date.each do |detention_date, detentions| %>
+<h2><%= detention_date.strftime("%B %d, %G") %></h2>
+<table class="table table-hover table-condensed table-bordered">
+
+
+  <tr>
+    <th>Name</th>
+    <th>Grade</th>
+    <th>Teacher</th>
+    <th>Reason</th>
+    <th>Administrator</th>
+  </tr>
+
+<% detentions.each do |detention| %>
+  <tr>
+    <td><%= detention.student.full_name %></td>
+    <td><%= detention.student.grade %></td>
+    <td><%= detention.student.teacher %></td>
+    <td><%= detention.reason %></td>
+    <td><%= detention.administrator %></td>
+    
+  </tr>
+<% end %>
+
+</table>
+<% end %>
+
+<br />

@@ -1,0 +1,35 @@
+<h1>Listing suspensions</h1>
+
+<table>
+  <tr>
+    <th>Start date</th>
+    <th>End date</th>
+    <th>Days</th>
+    <th>Incident date</th>
+    <th>Reason</th>
+    <th>Administrator</th>
+    <th>Student</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @suspensions.each do |suspension| %>
+  <tr>
+    <td><%= suspension.start_date %></td>
+    <td><%= suspension.end_date %></td>
+    <td><%= suspension.days %></td>
+    <td><%= suspension.incident_date %></td>
+    <td><%= suspension.reason %></td>
+    <td><%= suspension.administrator %></td>
+    <td><%= suspension.student_id %></td>
+    <td><%= link_to 'Show', suspension %></td>
+    <td><%= link_to 'Edit', edit_suspension_path(suspension) %></td>
+    <td><%= link_to 'Destroy', suspension, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Suspension', new_suspension_path %>

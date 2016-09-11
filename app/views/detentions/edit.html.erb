@@ -1,0 +1,7 @@
+<h1>Editing detention</h1>
+
+<%= render 'form' %>
+
+<%= link_to 'Show', student_detention_path(@student) %> |
+<%= link_to 'Delete Detention', student_detention_path(@student), method: :delete, data: { confirm: 'Are you sure?' } %> |
+<%= link_to 'Back', :back %>

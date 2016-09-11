@@ -1,0 +1,7 @@
+<h1>Editing Lunch Detention</h1>
+
+<%= render 'form' %>
+
+<%= link_to 'Show', student_lunchdetention_path(@student) %> |
+<%= link_to 'Delete Lunch Detention', student_lunchdetention_path(@student), method: :delete, data: { confirm: 'Are you sure?' } %> |
+<%= link_to 'Back', :back %>

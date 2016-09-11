@@ -1,0 +1,40 @@
+
+
+<h1>All Suspension Students - <%= @suspensions_count %> Students / <%= Suspension.all.count %> Incidents </h1>
+
+
+
+<% @suspensions_group.each do |student, suspensions| %>
+<h2><%= student %> </h2>
+<table class="table table-hover table-condensed table-bordered">
+  <tr>
+    <th>Dates</th>
+    <th>Days</th>
+    <th>Grade</th>
+    <th>Teacher</th>
+    <th>Reason</th>
+  </tr>
+
+<% suspensions.each do |suspension| %>
+  <tr>
+    <td><%= suspension.start_date.strftime("%m/%d") %>-<%= suspension.end_date.strftime("%m/%d") %></td>
+    <td><%= suspension.days %></td>
+    <td><%= suspension.student.grade %></td>
+    <td><%= suspension.student.teacher %></td>
+    <td><%= suspension.reason %></td>
+  </tr>
+<% end %>
+
+
+
+  <tr>
+    <th>Total Days</th>
+    <th><%=  %></th>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+</table>
+<% end %>
+
+<br />

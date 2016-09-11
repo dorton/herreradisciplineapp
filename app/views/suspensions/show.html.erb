@@ -1,0 +1,29 @@
+<!-- <p id="notice"><%= notice %></p> -->
+
+<%= @suspension.incident_date.strftime("%m/%d/%Y") %>
+<br>
+<br>
+<B>VIA HAND DELIVERY</B><br>
+To the parents of <%= @student.full_name %><br>
+RE: The <%= @suspension.days %> day SUSPENSION of <%= @student.first_name %>.<br>
+<br>
+
+Dear <%= @student.parent_name %>,<br>
+Your child, <%= @student.first_name %> will be suspended from school <%= @suspension.start_date.strftime("%m/%d/%Y") %> and ending on <%= @suspension.end_date.strftime("%m/%d/%Y") %> (<%= @suspension.days %> days) for violating the following in the Code of Student Conduct:<br>
+<br>
+<%= @suspension.reason.upcase %><br>
+<br>
+The misconduct constituting these violations of school rules has been explained to you and your child and an opportunity to present responses to these charges has been allowed.  Reasonable alternatives to suspension have been considered, and the school has determined that suspension is most appropriate.<br>
+<br>
+Your child may not return to school until the suspension has been completed.  The student will be given assignments to complete during this period of suspension.  Your child’s absences shall be considered unexcused.  While suspended, your child may not enter any school campus except with you for the purpose of securing assignments and discussing conduct with school administrators.  You are responsible for providing supervision for your child during the period of suspension.  If you have any questions, please feel free to call.
+ <br>
+<br>
+Thank you,<br>
+<br>
+<%= @suspension.administrator %>
+
+<br>
+<br>
+<br>
+<br>
+Parent Signature ______________________________________

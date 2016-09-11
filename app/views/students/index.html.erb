@@ -1,0 +1,41 @@
+<h1>All Students - <%= Student.all.count %></h1>
+
+
+<table class="table table-hover table-condensed">
+  <tr>
+    <th></th>
+    <th>Student Name</th>
+    <th>Grade</th>
+    <th>Student ID</th>
+    <th>Teacher</th>
+    <th>Parent</th>
+    <th>Contact</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @students.each do |student| %>
+  <tr>
+    <td></td>
+    <td><%= link_to student.full_name, student %></td>
+    <td><%= student.grade %></td>
+    <td><%= student.stu_id %></td>
+    <td><%= mail_to student.teacheremail, student.teacher %></td>
+    <td><%= student.parent_name %></td>
+    <td><%= student.phone %></td>
+    <td><%= link_to 'Edit', edit_student_path(student) %></td>
+    <td><%= link_to 'Delete Student', student, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Student', new_student_path %>
+
+<h2>Import Students</h2>
+
+<%= form_tag import_students_path(Student), multipart: true do %>
+    <%= file_field_tag :file %>
+    <%= submit_tag "Import" %>
+<% end %>

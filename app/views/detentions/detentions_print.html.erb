@@ -1,0 +1,71 @@
+<!-- *****************Detention Students*****************-->
+<div class="row-fluid">
+<h1>Detentions for <%= Time.now.end_of_week(start_day = :thursday).strftime("%m/%d/%Y") %></h1>
+  <h2>Office Detention Students 1:00 - 3:00</h2>
+  
+  <% if Detention.all(:conditions => ["detention_date > ? and detention_date <= ?", Time.now.beginning_of_week(:thursday).strftime("%Y-%m-%d"),Time.now.end_of_week(:thursday).strftime("%Y-%m-%d")]).empty? %>
+  <h4>No Office Detentions (Right Now)</h4>
+  <% else %>
+  <table class="table table-hover table-condensed table-bordered">
+    <tr>
+      <th>Student Name</th>
+      <th>Grade</th>
+      <th>Teacher</th>
+      <th>Reason</th>
+
+    </tr>
+    <% Detention.all(:conditions => ["detention_date > ? and detention_date <= ?", Time.now.beginning_of_week(:thursday).strftime("%Y-%m-%d"),Time.now.end_of_week(:thursday).strftime("%Y-%m-%d")], :order => "detention_date DESC").each do |detention| %>
+    <tr>
+      <td><%= detention.student.full_name %></td>
+      <td><%= detention.student.grade %></td>
+      <td><%= detention.student.teacher %></td>
+      <td><%= detention.reason %></td>
+    </tr>
+    <% end %>
+  </table>
+  <% end %>
+  <% if Detention.all(:conditions => ["detention_date > ? and detention_date <= ?", Time.now.beginning_of_week(:thursday).strftime("%Y-%m-%d"),Time.now.end_of_week(:thursday).strftime("%Y-%m-%d")]).empty? %>
+  <h4></h4>
+  <% else %>
+  <h4>Total Office Detentions - <%= Detention.all(:conditions => ["detention_date > ? and detention_date <= ?", Time.now.beginning_of_week(:thursday).strftime("%Y-%m-%d"),Time.now.end_of_week(:thursday).strftime("%Y-%m-%d")]).count %></h4>
+  
+
+  <% end %>
+</div>
+
+<!-- *****************Grade Detention Students*****************-->
+<div class="row-fluid">
+  <h2>Grade Level Detention Students 1:00 - 2:00</h2>
+  
+  <% if Gradelevel.all(:conditions => ["gldate > ? and gldate <= ?", Time.now.beginning_of_week(:thursday).strftime("%Y-%m-%d"),Time.now.end_of_week(:thursday).strftime("%Y-%m-%d")]).empty? %>
+  <h4>No Grade Level Detentions (Right Now)</h4>
+  <% else %>
+  <table class="table table-hover table-condensed table-bordered">
+    <tr>
+      <th>Student Name</th>
+      <th>Grade</th>
+      <th>Teacher</th>
+      <th>Reason</th>
+
+    </tr>
+    <% Gradelevel.all(:conditions => ["gldate > ? and gldate <= ?", Time.now.beginning_of_week(:thursday).strftime("%Y-%m-%d"),Time.now.end_of_week(:thursday).strftime("%Y-%m-%d")], :order => "gldate DESC").each do |detention| %>
+    <tr>
+      <td><%= detention.student.full_name %></td>
+      <td><%= detention.student.grade %></td>
+      <td><%= detention.student.teacher %></td>
+      <td><%= detention.glreason %></td>
+    </tr>
+    <% end %>
+  </table>
+  <% end %>
+  <% if Gradelevel.all(:conditions => ["gldate > ? and gldate <= ?", Time.now.beginning_of_week(:thursday).strftime("%Y-%m-%d"),Time.now.end_of_week(:thursday).strftime("%Y-%m-%d")]).empty? %>
+  <h4></h4>
+  <% else %>
+  <h4>Total Grade Level Detentions - <%= Gradelevel.all(:conditions => ["gldate > ? and gldate <= ?", Time.now.beginning_of_week(:thursday).strftime("%Y-%m-%d"),Time.now.end_of_week(:thursday).strftime("%Y-%m-%d")]).count %></h4>
+  
+
+  <% end %>
+
+
+
+</div>

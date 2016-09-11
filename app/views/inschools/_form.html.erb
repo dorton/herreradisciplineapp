@@ -1,0 +1,42 @@
+<%= form_for([@student, @inschool]) do |f| %>
+  <% if @inschool.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@inschool.errors.count, "error") %> prohibited this inschool from being saved:</h2>
+
+      <ul>
+      <% @inschool.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-inline">
+    <h4><%= f.label :start_date %>
+        <%= f.datepicker :start_date, :dateFormat => 'yy-mm-dd', :class => "input-small"  %></h4>
+  </div>
+  <div class="form-inline">
+    <h4><%= f.label :end_date %>
+        <%= f.datepicker :end_date, :dateFormat => 'yy-mm-dd', :class => "input-small"  %></h4>
+  </div>
+  <div class="form-inline">
+    <h4><%= f.label :days %>
+        <%= f.select :days, ['1', '2', '3', '4', '5'], :prompt => 'Select Days', :class => "input-small"  %></h4>
+  </div>
+  <div class="form-inline">
+    <h4><%= f.label :incident_date %>
+        <%= f.datepicker :incident_date, :dateFormat => 'yy-mm-dd', :class => "input-small"  %></h4>
+  </div>
+  <div class="form-inline">
+    <h4><%= f.label :reason %><br />
+        <%= f.text_area :reason, :rows => 5 %></h4>
+  </div>
+  <div class="field">
+    <br />
+    <%= f.select :administrator, ['Mandy Gutierrez', 'Rachel Ham', 'Melody Vizi', 'Christopher Carnes', 'Sandra Castillo'], :prompt => 'Select Administrator' %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
